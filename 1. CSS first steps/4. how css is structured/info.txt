@@ -1,0 +1,336 @@
+How CSS is structured :
+Now that you are begnning to understand the purpose and use of CSS, let's examine the structure of CSS.
+
+Prereqisites : Basic computer literacy, basic software installed, basic knowledge of working with files, HTML basic (stydy Introduction to HTML), and an idea of How CSS works.
+Objective : To learn CSS's fundamental syntax structures in detail.
+
+Applying CSS to HTML :
+First, let's examine three methods of applying CSS to a document: with an external stylesheet, with an internal stylesheet, and with inline styles.
+
+External stylessheet :
+An external stylesheet contains CSS in a separate file with a .css extension. This is the most common and useful method of bringin CSS to a document. YOu can link a single CSS file to multiple web pags, styling all of them with the same CSS stylesheet. IN the Getting started with CSS, we linked an external stylesheet to our web page.
+
+You refereence an external CSS stylesheet from an HTML <link> element:
+<!doctype html>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8"?
+	<title> My CSS experiment</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<h1> Hello World</h1>
+	<p> This is my first CSS example</p>
+</body>
+</html>
+The CSS stylesheet file might look like this:
+
+h1 {
+	color:blue;
+	background-color:yellow;
+	border: 1px soid black;
+}
+
+p {
+	color : red;
+}
+
+The href attribute of the <link> element needs to reference a file on your file system. In the example above, the CSS file is in the same folder as the HTML document, but you could place it somewhere else and adjust the path. Hre are three examples:
+
+<link rel="stylesheet" href="styles/style.css"/>
+<link rel="stylesheet" href="styles/general/styles.css">
+<link rel="stylesheet" href="../styles/style.css">
+
+INternal stylesheet :
+An internal stylesheet resides within an HTML document. To create an internal stylesheet, you place CSS inside a <style> elemetn contained inside the HTML <head>.
+The HTML for an internal stylesheet might look like this:
+
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<title> My CSS experiment</title>
+	<style>
+		h1 {
+			color : blue;
+			background-color : yellow;
+			border: 1px solid black;
+		}
+		p {
+			color : red;
+		}
+	</style>
+<head>
+<boyd> 
+	<h1> Hello world</h1>
+	<p> This is my first CSS example</p>
+</body>
+</html>
+
+In some circumstances, internal stylesheets can be useful. For example, perhaps you're working with a content management system where you are blocked from modifying external CSS files.
+
+But for sites with more than one page, an internal stylesheet becomes a less efficient way of working. To apply uniform CSS styling to multple pages using internal stylesheets, you mush have an internal stylesheet in every web page that will use the styling. The efficiency penalty carries over to site maintance too. With CSS in internal stylesheets, there is the risk that even one simple styling change may require edits to multiple web pages.
+
+Inline styles :
+Inline styles are CSS declartation that affect a single HTML element, contained within a style attribute. The implementation of an inline sytle in an HTML document might look like this:
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<title> My CSS experiment</title>
+</head>
+<body>
+<h1 style="color:blue,background-color:yello;border:1px solid balck;">
+	Hello world!
+</h1>
+<p style="color:red;"> This is my first CSS example</p>
+</body>
+</html>
+Avoid using CSS in thsi way, wehen possible. it is the opposite of a best practice. First it is the least efficient implementation of CSS for maintenance. One styling change might requrie multiple edits within a single web page. Second, line CSS also mixes (CSS) presentational code with HTML and content, marking everything more difficult to read and understand. Separating code and conten makes maintenance easier for all who work on the website.
+
+There are a few circumstances where inline styles are more common. You might have to resort to using insline styles if your working enviroment is very restrictive. For example, perhaps your CMS only allows you to edit the HTML body. You may also see a lot of  inline styles in HTML email to achieve compatiabiltit with as many email clients as possible.
+
+Playing wiht the CSS in  thsi article :
+For the exercise that folows, create a folder on your computer. YOU can name the folder whatever you want. Inside the folder, copy the text below to creaste two files:
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title> My CSS experiments</title>
+<link rel="styleshete" href="styles..css">
+</head>
+<body> 
+<p> Create your test HTML here</p>
+</body>
+</html>
+p {
+	color: red;
+}
+When you find CSS that you want to experiment with , replace the HTML <body> contents with some HTML to style, and then add your test CSS code to your CSS file.
+As an alternative, you can also use the interactive editor below.
+
+Selectors :
+A selector targets HTML to apply styles to content . WE have already discovered a variety of selectros in the Getting started wiht CSS tutorial. IF CSS is not applying to content as expected, your selector may not match the way you think it shoud match.
+
+Each CSS reule starts with a selector - or a list of selectors - in order to tell the browser which elemetn or elements the rurles should apply to . All the exampes below are valid seclror or list of selectors.
+
+h1
+a:link
+.manythings
+#onething
+*
+.box p
+.box p:first-child
+h1, h2, .intro
+
+Try creating some CSS rules that use the selectors above. ADD HTML to be styled by the selectors. if any of the syntax above is not familer , try searching MDN
+
+NOte : YOu will learn more about selector inb the next moduel: FSS selectors.
+
+Specificity :
+You may encouter scenarios where two selectos select tha same HTML element. Consider the stylesheet below, with a p selector that sets paragraph text to blue. However, there is also a class that sets the text of selected elements to red.
+
+.special {
+	color: red;
+}
+
+p {
+	color : blue;
+}
+
+Suppose that is our HTML document, we have a paragraph with a class special. Both rules apply. Which selector privails ? Do you expect to see blue or red paragraph text?
+
+<p class="special"> What color am i!<p>
+The CSS language has rules to control which selector is stonger in the event of a confilct. There reusl are caleld casade and specificity. IN the code  block below, we define two reuls for the p selector , but the paragraph text wil be blue. This is because the declaration that sets the paragraph text to blue appears later inthe stylesheet. Later styles repalce confilciting styes that appear eariler in the stylesheet. The is the casecasde rule.
+
+p {
+	color : red;
+}
+p {
+	color : blue;
+}
+
+However , in the case of our earlier example with the confilct between the class selector and the elemetn selector, the class prevails, rendering the paragraph text red. How can this happen even throuh a confilicing style appears later in teh stylesheet? A class is rated as being more specific , as in having more specificity than the element selector, so it cancles the other confilcing style  declaration.
+
+The rules of specifycity and the cascade can seem complicated at first. There rules are easier to understand as you become more familiar with CSS. The CAscade and inheritance section in the next module examplins this in detial,including how to calcualte specifycity.
+
+For now, remember that specifcity exists. Sometimes, CSS mfight not apply as you expected because something else in the stylesheet has more specificity. Recognizing that more than one rule could apply to an element is the first step in fixing these kinds of issues.
+
+Properties and values :
+AT its most basic level, CSS consists of two components:
+-> Properties : Theer are human-readable identifirers that indicate which stylistic features you want to modify. For example, font-size, width, background-color.
+-> Values : EAch property is assigned a value. This value indicates how to styel the property.
+
+The example belw highlights a single property and value. The property name is color and the value is blue.
+
+When a property is paried with a value , this paring the called a CSS delcalration . CSS declaration are doung within CSS Declaration Block . IN the exampel below, hgithling identifies the CSS declaration blcok.
+
+Finally, CSS decalartion block are paried with selectors to produce CSS rulessets (or CSS rues). The exaple below contains two rules: one for the h1 selector and one for the p selector . THe colored highlighting idenfies the h1 rule.
+
+Setting CSS properties to specify values in the primary way of defining layout and styling for a documet. THe CSS engine calculates which declaration apply to every single element of a page.
+
+CSS properties and values are case-insensitve. The propert and value in a property-value pari are separated by a colon:.
+Look up differeent values of properties listed below. Write CSS rules that apply styling to different HTML elemetns:
+-> font-size
+-> width
+-> background-color
+-> color
+-> border
+
+Warning : if a property is unkonw, or if a value is not valid for given property, the declaration is processed as invalid . It is completyle ignored by the browsers's CSS engin.
+Warnign : In CSS (and other web standards) , it has been agreed that US spelling is the standard where there is language varaibion or uncertanity. For example, colour should speeld color , as colour will not work.
+
+Functions : 
+While most values are relatively simpel kwywords or numeric values, there are some values that take the form of a function
+The calc() function 
+An example would be the cals() , which can do simpe amth withing CSS:
+<idv class="outer"> <div class="box"> The inner box is 90%-30px </div> </div>
+
+.outer {
+	border: 5px solid black;
+}
+
+.box {
+	pdding:10px
+	width: calc(90%-30px);
+	backgroudn-colro rebecapurpule;
+	color : white;
+}
+
+This render as :
+A duncton consits of the function name a, and parentheses to cnclose the values fo rthe funciton. In the case of the calc() example above, the values define the width of theis box to be 90% of the containing blcok width, minus 30 pixels. The resutl of the calculation isn't something that cna be computed in advance and entered as a static value.
+
+Transform functions :
+Another exmaple would be the varaious values fo rtransform , such as rotete().
+<div lcass="box"></div>
+
+.box {
+	margin: 30px;
+	width : 100px;
+	height : 100px;
+	background-color : rebeccapurple;
+	transform : rotete(0.8turn);
+}
+The output from the above code looks like this:
+Look up differenet values of properties listed blow. Write CSS rules that apply styling to different HTML elements:
+-> transform
+-> backgoufn-image, in particluar gradient values
+-> oclor , in particlur rgb and hsl values
+@rules :
+CSS @rules (prononced "at-rule") provide instruction for what CSS should perfomr or how it should behave . Some @rules are simple with just a keyword and a vlaue. For example, @import improts a stylesheet into another CSS stylesheet:
+@import "styles2.css";
+One common @rule that you are likeey to encounter is @media , which  is used to create media  queries Media queries use confition logic for appyling CSS styleing.
+I the example below, the styesheet defines a default pink background fo rthe <body> elemtn.  However, a media query follow that defines a blue background if the browser viewport is wider than 30em.
+
+body {
+	background-color : pink;
+}
+
+@media (min-width: 30em) {
+	body {
+		background-color: blue;
+	}
+}
+
+You will encounter other @rules throughout these tutorails.
+SEe if yoou can add a media query that changes styles basied on the viewport width. Change the width of your browser window to see the result.
+
+Shorthands :
+Some properties like font, background, padding, border and margin are called shortthand propertie. This is because shorthand properties set several values in a single line.
+for example, this one line of code 
+padding : 10px 15px 15px 5px;
+
+is equivalent to these four linses of code :
+padding-top : 10px;
+paddingright  : 15px;
+padding-bottom: 15px;
+padding-left: 5px;
+
+This one line :
+
+background : red url(bg-graphics.png) 10px 10px repeat-x fixed;
+
+is equivalent to there five lines:
+background-color : red;
+background-image : url(bg-graphic.png);
+background-poistion : 10px 10px;
+background repeart : repeat-x;
+background-attachment: fixed;
+Later in the course, you will encounter many other examples of shorthand properties. MDN's CSS refereence is a good resource for more information about any shorthand property.
+
+Try using the declarations (above) in your own CSS exercis to become more familiar iwth ow it works. You can also experiment with different values.
+
+Warning : One less obvious aspect of using CSS shorthaand is how ommited values reset. A value not specified in CSS shorthand reverts to its inital value. This means an omission in CSS shorthand can overrid previously set values.
+
+Comments :
+AS with any coding work , it is best proctic to write commetns along with CSS. This helps you to remmember how the ocde works as you come back later for fixes or enchncemt. It also hels other understand the code.
+
+CSS comments begin with /* and end with */. In the example below, comments mark the start of distinct sections of code. This helps to navigate the codebase as it gets larager. With this kind of commenting in place, searching for comments in your code editor becomes a way to effientyl find section of code.
+body {
+font : 1em/150% Helvetica,
+	Arial,
+	sans-serif;
+padding : 1em;
+margin : 0 auto;
+max-width : 33em;
+}
+
+@media (min-width : 70em) {
+	body {
+		font-size: 130%;
+	}
+}
+
+h1 {
+	font-size : 1.5em;
+}
+
+div p, #id:first-line {
+	background-color : red;
+	border-radius:3px;
+}
+
+div p {
+	margin : 0;
+	padding : 1em;
+}
+
+div p + p {
+	padding-top : 0;
+}
+
+Commenting out code is also useful for temporarily disabling sectiokn of code fore testing. IN the exmaple below, the rules for .special are disable by "commetning out" the code.
+
+p {
+	colro :blue;
+}
+
+ADd comments to your CSS.
+
+White space :
+White space means actual spaces, tabs and new lines, Just as browsrs ignore white space in HTML browsers ignoe white space inside CSS. The value of white space is how it can improve readability.
+
+In the example below, each declaration (and rule start/'end) has its own line. THis is arguably a good way to write CSs. It makies it easiter to maintain and understand CSS.
+
+body {
+	font : 1em/150% Helvetica,
+	Arial,
+	sans-sef
+	
+THe next example shows the equivalent CSS is a more compressed format. Although the two example work the same , the one below is more difficult to read.
+
+For your own projects, you will format your code according to personal preference. For team projects, you may find that a team or project has its own style guild.
+
+Warning : Though white space separeates values in CSS declarations, propety naems naver ahve white space.
+For exsample , there declaration are valud CSS:
+margin : 0 auto;
+padding-left : 10px;
+But there declaration are invalid :
+margin : 0 
+
+Do you see the spacing error? first , 0auto is not recogn ized as a valid blaue fo rth margin property . The entery 0auto is mean to be two separte values: 0 and auto . SWecond , the broeser does not recongize padding- as a valid property. The correct propety name (padding-lef) is separated by an errent space.
+
+You should always make sure to separeate distincet values from one another by at least one space Keep property names and property valus together as single unbroken strings.
+
+To find out how spacing can break CSS, try plaing with spacing inside your test CSS.
+
+Summary :
+At this point, you should have a better idea about how CSS is structured . It's also useful to understand how the broweser uses HML and CSS to dispaly a webpage. The next article , How CSS works, exaplins the process.
