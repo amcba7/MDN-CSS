@@ -1,0 +1,81 @@
+CSS building blocks :
+This module carries on where CSS first steps left off - now that you've gained familiarity wiht the language and its syntax, and got some basic experience using , it's time to dive a bit deepper. THis module looks at the cascade and inheritance, all the selector types we have avaiable, units, sizeing styling backgrounds and border, debugging and lots more.
+
+THe aim here is to provide you with a toolkit for warting competent CSS and help you understand all essential theory, before moving on to more specifc disiplines like text styling and CSS layout.
+
+Looking to become a front-end web developer ?
+We have put together a course that includes all the essential information you need to work towards your goal.
+
+Prerequisites :
+Before starting this module, you should have:
+1. Basic familiarity with using computers, and using the web passively (i.e just looking at it, consuming the content).
+2. A basic work enviornment set up as detailed in installing basic software, and an understanding of how to create and mange files, as details in Dealing with files.
+3. Basic familiarity with HTML, as discussed in the Introduction to HTML module.
+4. An understanding of the basics of CSS , as discussed in the CSS first steps module.
+
+Note : If you are woking on a computer/tablet/other device where you don't have the ability to create your own files, you could try out (most of) the code examples in an online coding program such as JSBin or Glitch.
+
+Guides :
+This module contains the following articles, which cover the most essential parts of the CSS language. Along the way you'll come across plenty of exercises to allow you to test your understanding.
+
+CSS selectors :
+There are a wide variety of CSS selectors avaiable, allowing the fine-grained precision when selecting elements to style. IN this article and its sub-articles, we'll run through the different types in greate detail, seeing how they work. The sub-articles are as follows:
+
+-> Type, class, and ID selectors.
+-> Attricute selectos
+-> Pseudo-classes and pseudo-elements
+-> Comibatiors
+
+Cascade, specificity and inheritance
+
+The aim of this lesson is to devlop your understanding of some of the most fundamantal concepts of CSS - the casade, specificity, and inheritance - which control how CSS is applied to HTML and how conflicts are resolved.
+
+Cascade layers :
+This laesson aims to introduce you to casade layers, a more advanced feature that builds on the fundamental concepts of the CSS casade and CSS specificity.
+
+The bosx model :
+Everything is CSS has a box around it, and understanding these boxes is key to being able to create layouts with CSS, or to align items with other items. IN this.  lesson, we will take a proper look at the CSS Box Model, in order that you can move onto more comple4x layout tasks with an understanding of how it works and the terminology that relates to it.
+
+Backgrounds and borders :
+In this lesson we will take a look at some of the creative things you can do with CSS backgrounds and borders. From adding gradients, background images, and rounded corners, backgrounds and borders are the answer to a lot of styling questions in CSS.
+
+Heading differeent text directions :
+In recent years, CSS has evolved in order to better support different directionality of content, including right-to-left but also top-to-bottom content (such as Japneese) - thees diffrent directionalities are called writing modes. AS you progress in your study and being to work with alyout, an understanding of writing modes will be cery helpful to you. Therefore we will introduce them in thsi article.
+
+Overflowing content :
+In this lesson we will look at another important concepts in CSS - overflow . Overflow is what happends when there is too much content to be contained comfortably inside a box. In this guide, you will learn what it is and how to mangage it.
+
+CSS values and units :
+Every propety used in CSS has a value or set of values that are allowed for that property. In this lesson , we will take a look at some of the most common values and units in use.
+
+Sizing items in CSS :
+IN the various lessons so far, you have come acrosss a number of ways to size items on a web page using CSS. Understanding how bigh the diffrent features in your design will be is important , you in this lesson , we will summarize the various ways elements get a size via CSS and define a few terms around sizzing that will help you in tthe future.
+
+Image, media nad form elements :
+	In this lesson we will take a look at how certain special elemetns are treated in CSs. Images., other media , and from elemetns behave a little differently in terms of your avility to style them wiht CSS than regulr obxes. Understanding what is and isn't possible can save some frustration, and this lesson wil hgighlight some of the main thngs that you need to know.
+	
+Styling tables :
+	Styling an HTML table isn't the most glamorous hob in the world, but sometimes we all have to do it. This article provides a guide to making HTML tables look good, with some specific table styling techniques hightlignted.
+	
+Debugging CSS :
+Sometimes when writign CSS you will encounter an issue where you CSS doen't seem to be doing what you expect. This article will give you guidence on hwo to go about debugging a CSS proble, and sho w you how the DebbTools includes in all mordern browsers cna help you find ouyt what is going on.
+
+Organizing your CSS :
+AS you start to work okn larger stylesheets and big projects you will discover that maintainging a huge CSS file can be challenging . In this article, we will take a brief look at some best practices for writing your CSS to make it easily maintainable, and some of the solution you will find in use by others to help improve maintaninablity.
+
+Assessments :
+The following assessments will test your understanding of the cSS covered in tthe guides above.
+
+Fundamentals CSS comrehesion :
+	This assessment tests your understading of basic syntax, selectors, speciyfcity, box model, and more.
+	
+	Creating fancy letterheaded paper :
+		If you want to make the right impression , writting a letter on nice letterheaded paper can be really good start . IN this assessment, we'll change you to create an online template to achive such a look.
+		
+A cool locking box :
+	Here you'll get some practice in using background and border styling to create an eye-cathing box.
+See also :
+Advanced styling effects :
+	This article acts as a box of tricks , proving an introduction to some intersting advanced styling features such as box shadows, bland modes , and fileters.
+	
+	
