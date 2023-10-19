@@ -1,0 +1,88 @@
+CSS selectors :
+In CSS, selectors are used to target the HTML elemetns on our web pages that we want to style. There are a wide variety of CSS selectors avaiable, allowing for fine-grained precision when selecting elemetns to style. In this article and its sub-articles we'll run through the different types in greate detail, seeing how they work.
+
+Prerequisites : Basic computer literacy, basic softare installed, basic knowledge of working with files, HTML basics (study Introduction to HTML), and an idea of how CSS works (study CSS first steps)
+Objective : To learn how CSS selectors work in detail.
+
+What is a selector :
+A CSS selector is the first part of a CSS Rule. It is a pattern of elments and other terms that tell the browser which HTML elements should be selected to have the CSS property values inside the reule applied to them. The element or elements which are selected by the selector are referred to as the subject of the selector.
+
+In other articles you may have met some differeent selectors, and learned that there are selectors that target the document in different ways - for exmple by selecting an element such as h1, or a class such as .special.
+In CSS, selectors are defined in the CSS Selectos specification; like any other part of CSS they need to have support in browsers for them to work. The majority of selectors that you will come across are defined in the level 3 Seclector spection and Level 4 Selectos specification, which are both mature specifications, therefore you will find excellent browser support for these selectos.
+
+Selector lists :
+If you have more thatn one thing which uses the same CSS then the individual selectos can be combined into a selector list so that the rule is applied to all of the individual selectos. For example, if I have the same CSS for an h1 and also a class of .special, I coluld write this as two separte rules.
+h1 {
+	color:blue;
+}
+
+.special {
+	color:blue;
+}
+
+I could also combine these into a selector list, by addding a comma between them.
+
+h1, .special {
+	color:blue;
+}
+
+White space is valid before or after the comma. YOu man also find the selectos more readbable if each is on a new line.
+h1, .special {
+	color:blue;
+}
+
+In the live example below try combining the two selectos which have identical declarations. the visual dispaly should be the same after combining them.
+
+When you group selectos in this way, if any selectos is syntactically invalid , the whole rule will be ignored.
+
+In the following example, the invalid class selector rule will be ignored, whereas the h1 would still be styled.
+
+h1 {
+	color:blue;
+}
+
+..special {
+	color:blue;
+}
+
+Wen combined however, neither the h1 nore the class will be styled as the entire rule is deemed invalid.
+
+Types of selectors :
+There are a few different groupings of selectors, and knowing which type of selectos you might need will help you to find the right tool for the job. In this article's subarticles we will look at the differeent groups of selectos in more detail.
+
+Type, class, and ID selectors :
+Type selectos target an HTML eleent such as an <h1>:
+
+h1 { }
+Class selectos target an element that has a specific value for its class attribute:
+
+.box {}
+ID selectors target an element that has a specific value for its id attribute:
+#unique {}
+
+Attribute selectos :
+This group a selectos gives you different way to select elements based on the presence of a certain attribute on an element:
+a[title] {}
+
+or even make a selction based on the presence of an attribute with a particlue value:
+a[href="https://example.com"]
+{}
+
+Pseudo-classes and pseudo-elements :
+This group of selectos includes pseudo-classes, which style certain states of an element. The :hover pseudo-class for example selects selects an elemtn only when it is being hovered over by the mouse pointer:
+
+a:hover {}
+
+It also includes pseuo-elements, which select a certain part of an element rather than the elemetn itself. For example, ::first-line always select the first line of insida an element (a <p> in the belo cases,) acting as if a <span> was wrapped around the first formatted line and then selected.
+
+p:: first-line {}
+
+Combinators : The final group of selctors combine other selectors in order to target elements within our documents. The following , for example, select pargraph that are direct children of <article> elements using the child combinator(>):
+
+article > p {}
+
+Summary :
+In this article we've introduced CSS selectos, which enable you to target particular HTML elements. Next, we'll take a closer look at type, class, and ID selectos.
+For a complete list of selectors, see our CSS selectos referecne.
+
+
