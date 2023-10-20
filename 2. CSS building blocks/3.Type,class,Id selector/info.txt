@@ -1,0 +1,59 @@
+Type, class, and ID selectors :
+In this lesson, we examine some of the simplest selectos, which you will probably use most frequently in your work.
+
+Prerequisites : Basic computer literacy, basic software installed, basic knowledge of working with files, HTML basics (study Introduction to HTML), and an idea of how CSS works (study CSS first stpes)
+
+Objective : To learn about the different CSS selectors we can use to apply CSS to a document.
+
+Type selectors :
+A type selector is sometimes referred to as a tag name selector or element selector becuase it select an HTML tag/element in your document. IN the example below, we have used the span, em and strokng selectors.
+
+Try adding a CSS rule to select the <h1> element and change its color to blue.
+
+The universal selectory :
+The universal selector is indicated by an asterisk (*). It selects everything in the document (or inside the parent element if it si being chained together with another element and a descendant comibinator). IN the following example, we use the universal selector to remove the argins on all elements. Instead of the default styling added by the browser - which spaces out heading and paragraph with margins - everthing is close together.
+
+This kind of bewhavior can sometimnes be seen in "resetr stylesheets", whcich strips out all of the browser styling . Since the universal selector makes global changes, we use it for very specific situations, such as the one described below.
+
+Using the universal selector to make your selectors easier to read 
+
+One use of the universal selector is to make selector easier to read and more obvious in terms of what they are doign . For example, if we wanted to se4lect any descendant elements of an <article> element that are the first child of their parent, including direct children, and make them bold, we could use the :first-child pseudo-class. We will learn more about this in the lesson on pseduo-classes and pseudo-elements, as a descendant selector along with the <aritcle> element selector:
+article : first-child {
+	font-weight : bold;
+}
+
+However, this selector could be confused with article : first-child , which will slect any <article element thzt is the first child of another element.
+
+To avoid this confusion, we can add the universal selector to the :first-child pseudo-class, so it is more obvious what the selector is dong . It is selectint any element which is the first-child of an <article> element, or the first-child of any descendant element of <article>:
+
+article * : first-child {
+	font-weight: bold;
+}
+
+Although both do the same thing, the readability is significantly improved.
+
+Class selectors :
+The class selectors starts with a dot(.0 character. It will selecdt everything in the document with that class applied to it. In the live example below we have created a class called highlight, and have applied it to serveral places in my document. All of the element that have the class applied are highlighted.
+
+Targeting classes on particluer elements :
+You can creatre a selector that will target specific elements with the class applied. In this next example, we will highlight a <span> with a class of highlight differently to an <h1> heading with a class of highlight . We do this by suing the type selector for the elemebnt we want to target, with the class appended using a dot, with no whicte space in between.
+
+This approach reduces the scope of a rule. The rule will only apply to that particluer element and class combination. You would need to add another selector if you decided the rule should apply to other elements too.
+
+Target an element if it has more that one class applied :
+You can apply multiple classes to an element and target them individually, or only select the element when all of the classes in the selector are present. This can be helpful when building up components that can be combined in different ways on your site.
+
+In the example below, we have a <div> that contains a note. The grey border is applied when the box has a class of notebox. If it also has a class of warning or danger, we change the border-color.
+
+We can tell the browser that we only want to match the element if it has two classes applied by chaining them together with no white space betwwen them. You'll see that the last <div> doesn't get any styling applied , as it only has the danger class; it needs notebox as well to get anything applied.
+
+ID selectors :
+An ID selector begins with a # rather than a dot character, but is used in the same way as a class selector. However, an ID can be used only once per page, and elements can only have a single id value applied to them. It can select an element that has the id set on it, and you can precede the ID with a type selector to only target the element if bothe the element and ID match, You can see both of these uses in the folloowing example:L
+
+Warning : Using the same ID multiple times in a document may appear to work for styling purpose. But don't do this. It results in invaid code, and will cause strange behavior in many places.
+
+Note : As we learned in the lesson on specificity, an ID has high specificity. It will overrule most other selectos. IN most cases, it is preferable to add a class to an element of an ID. However, if using the ID is the only way to target the element - parhaps becuase you do not have access to the markup and cannot edit it - this will work.
+
+Summary :
+That wraps up Type, class , and ID selectos, We'll continue exploreing selectors by looking at attribute selectos.
+
