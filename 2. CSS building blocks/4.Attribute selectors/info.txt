@@ -1,0 +1,48 @@
+Attribute selectors :
+As you know from your study of HTML< elements can have attributes that give further detail about the element being marked up. In CSS you can use attribute selectos to target elemetns with certain attributes. This lession will show you how to use these very useful selectos.
+
+Prerequisites : Basic computer literacy, basic software installed, basic knowledge of working with files, HTML basics (study Introduction to HTML). and an idea of how CSS works (study CSS first steps.)
+Objective : To learn what attribute selectos are and how to use them.
+
+Presence and value selectors :
+These selectos enable the selection of an element basied on the presence of an attriute alone (for example href). or on various differeetn matches against the vlaue of the attribute.
+
+[attr] -> a[title] :-> Matches elemetn with an attr attribute (whose nameis the value in sqare brackets).
+
+[attr=value] :-> a[href="https://example.com"] Matches elements with an attr attribute whose value is exactly value - the stirng inside the quotes.
+
+[attr~=value] :-> p[class~="special"] :-> Matches elements with an attr attriblute whose value is exactly value, or contains value in its (space separated) list of values.
+
+In the example below you can see these selectos being used.
+
+In the example below you can see these selectors being used.
+
+-> By using li[class] we can match any list item with a class attribute. This matches all of the list items expect the first one.
+-> li[class="a"] matches a selector with a class of a, but not a selector with a class of a with another space-separated class as part of the value. It selects the second list item.
+-> li[class~="a"] will match a class of a but also a value that contains the class of a as part of a whitespace-separated list. It selects the second and third list items.
+
+Substring matching selectos :
+These selectors allow for more advanced matching of substrings inside the value of your attribute. For excample, if you had classes of box-warning and box-error and wanted to match everthing that started with teh string "box-" you could use [class^-"box-"] to select them both (or [class!="box] as described in section abouve).
+
+[attr^=value] :-> li[class^="box-"] :-> Matches elements with an attr attribute, whose value begins with value.
+[attr$=value] :-> li[class$="-box"] :-> Matches elements with an attr attribute whose value ends with vlaue.
+[attr*=value] :-> li[class*="box"] Matches elements with an attr attribute whose value contains value contains value anywhere within the string.
+
+(Aside : It may help to note that ^ and $ have long been used as anchors in so- classed regulare expression to mean begins with and ends with respectively).
+
+The next example shows useage of these selectos : 
+-> li[class^="a"] matches any attribute value which starts with a, so matches the first two list items.
+-> li[class$="a"] matches any attribute vlaue that ends with a, so matches the first and third lsit item.
+-> li[class*="a"] matches any attribute value where a appears anywhere in the string, so it matches all of our list items.
+
+Case-sensitivity :
+If you want to match attribute vlaues case-insensitive you can sue the value i before the closing bracket. This flag tells the browser to match ASCII characters case-insensitvely. Without the flag the value will be matched according to the case-sensitvity of the document language - in HTML's case it will be case sensitive.
+
+In the example below, the first selector will match a value that begins with a - it only matches the first list item because the other two list items starts with an uppercase A. It only matches the first list item because the other two list items starts with an uppercase A. The second selector uses the case-insensitve flag and so matches all of the list items.
+
+Note : There is alos a newer values, which will force case-sensiteve matching in contexts where matching is normally case-insensiteve, however this is less well supported in browsers and isn't very useful in an HTML contenxt.
+
+Summary :
+Now that we are dont with attribute selectos, you can continuew on to the next article read aobut pseudo -class and pseduo-element selelctos.,
+
+
