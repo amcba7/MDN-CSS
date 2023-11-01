@@ -1,0 +1,277 @@
+Cascade layers :
+The lesson aims to introduce you to cascade layers, a more advanced feature that builds on the fundamental concepts of the CSS cascade and CSS specificity.
+
+If you are new to CSS, working through this lesson may seem relevant immediately and a little more academic than some other parts of the course. However, knowing the basics of what cascade layers are should you encounter them in your projects is helpful. The more you work with CSS, understanding cascade layers and knowing how to leverage their power will save you from a lot of pain managing a code base with CSS from different parties, plugins, and developement teams.
+
+Cascade layers are most relevant when you're working with CSS from multiple sources when threre are conflicting CSS selectors and competing specificities, or when you're considering using !important.
+
+Prerequisites: An idea of how CSS works, including cascade and specificity (study CSS first steps and Cascade, specificity, and inheritance).
+Objective : To learn how cascade layers work.
+
+For each CSS property applied to an element , there can only be one value. You can view all the property values applied to an element by inspecting the element in your browser's developer tools. The tool's "Styles" panel shows all the property values applied to the element being inspected, alogin with the matched selector and the CSS source file. THe selector from the origin with precedence has its values applied to the matching element.
+
+In addition to the applied styles, the Styles panel displays crossed-out values that matched the selected elemetn but were not applied due to the cascade, specificity, or source order. Crossed-out styles may come from the same origin with precedence but with lower specificity, or with matching origin and specificity, but were found earlier in the code base. For any applied property value, there may be several declarations crossed out from many different sources. If you see a style crossed out that has a selector with grater specificity it means the value is lacking in origin or importance.
+
+Often, as the complexity of a site increases, the number of stylesheets increase, which makes the source order of the stylesheets both more important and more complex. Cascade layers simplify mainting stylesheets across such code bases. Cascade alyers are explicit specificity containers providing simpler and greater control over the CSS declaration that ultimately get applied, enabling web devlopers to prioritize sections of CSS without having to fight specificcity.
+
+To understand cascade layers, you must understand the CSS cascade well. THe sections below provide a quick recap of the important cascade concepts.
+
+Review of the cascade concept :
+The C in CSS stands for "Cascading". It is the method by which styles cascade together. The user agent goes through several, very clearly-defined steps to determine the values that get assigned to every property for every element. WE will briefly list these steps here and then dig deeper into step 4, cascade layers, which is what you came here to learn:
+
+1. Relevance: Find all the declaration blocks with a selecto match for each element.
+2. Importance: Sort rules based on whether they are normal or important. Important styles are those that have the !important flag set.
+3. Origin : Within each of the two importance buckets, sort rules by author, user, or user-agent origin.
+4. Layers: Within each of the six origin importance buckets, sort by cascade layer. The layer order for normal declarations is fromt he first layer created to the last, followd by unlayerd normal styles. This order is inverted for important styles, with unlayered important styles having the lowest precedence.
+5. Specificity: For competing styles in the orign layer with precedence, sort declaration by specificity.
+6. Order of appearence: When two selectors in the orign layer with precedence have the same specificity, the property value from the last declared selector with the hightest specificity wins.
+
+For each step, only the declarations "still in the running" move on to "compete" in the next step. If only one declaration is in the running, it "wins", and the subsequent steps are moot.
+
+Origin and cascade :
+There are three cascade orign types: user-agent stylessheets, user stylesheet, and author stylesheets. The browser sorts each declaration into six origin buckets by origin and importance. THere are eight levels of precedence: the six origin buckets, properties that are transitioning, and properties that are animating. THe order of precedence goes from normal user-agent styles, which have the lowest precedence, to style within currently applied animations, to important user-agent styles, and then styles being transitoed, which have the hightest precedence:
+
+1. user-agent normal styles
+2. user normal styles
+3. author normal styles
+4. styles being animated
+5. author important styles
+6. user important styles
+7. user-agent importnat styles
+8. styles being transitioned
+
+The "user-agent" is the browser. The "user" is the site visitor. The "author" is you, the devloper, Styles declared direclty on an element with the <style> element are author styles, Not including animating and transitioning styels, user-agent normal styles have the lowest precedence; user-agent importnat styles have the highest.
+
+Origin and specificity :
+For each property, the declaration that "wins" is the one from the origin with precedence baseed on the weight (normal or important). Ignoreing layers for the moment, the value from the origin with the highest precedence gets applied. If the winning origin has more than one property declaration for an elemetn, the specificity or the selectos for those competing property values are compared. Specificity is never compared between selectos from different origins.
+
+In the example below, ther are two links. The first has no author styles applied, so only user-agent styles are applied (and your personal user styles, if any). THe second has text-decoration and color set by author styles even though the selctor in the author stylessheet has a specificity of 0-0-0. THe reason why author styles "win" is because when three are conflicing styles from different origins, the rules from the rogin with precidence are applied, irrespective of the specificity in thr orign that doesn't have precedence.
+
+The "competing" selector in the user-agent stylesheet at the time of this writing is a:any-link, which has a specificity weight of 0-1-1. While this is grater thatn the 0-0-0 selector in the author stylesheet, even if the selector in your current user agent is different , it doesn't matter : the specificity weights from author and user-agent origins are never compared. Learn more about how specificity weight is calculatecd.
+
+Origin precedence alwyas wins over selector specificity. If an element property is styled with a normal style declaration in multiple origins, the author style sheet will alwyas overrid the redundant normal propeties declared in a user or user-agent stylesheet. If the style is important , the suer-agent stylesheet will always win over author and user styles. Cascade origin precedence ensures specificity conflicts between origns never happen.
+
+One last thing to note moving on: the order of appearence becomes relevant only when competing declaration in the origin of precedence have the same specificity.
+
+Overview of cascade layers :
+WE now undersand "cascade origin precedence", but what i s"cascade layer precedence"? We will answer that question by addressing what cascade layer are , how are ordered, and how styles are assigneed to cascade layers. We'll cover regulare layers, nested layeres, and anonymouse layers. Let's first discuss what cascade layers are and what issues they solve.
+
+Cascade layer precedence order :
+Similar to how we have six levels of priority based on origin and importance, cascade layers enable us to create sub-origin level of priority within any of those origins.
+
+Within each of the six origin buckets, there can be multiple layers. Ther order of layer creation matters a lot. It is the order of creation that sets the precedence order among layers within an origin.
+
+In normal origin buckets, layers are sorted in the order of each layer's creation. The order of precedence is from the first layer created to the last, followd by unlayerd normal styles.
+
+This order is inverted for important styles. All unlaryed importnat styles cascade together into an implict layer having precedence over all non-transitioning normal styles. The unlaryed imporatnt styles have loweer precedence than any important layered styles. The importnat styles in earlier declared layer have precedence over important styles in subsequent declared layers withing the same origin.
+
+For the rest of this tutorial, we will limit our discussion to author styles, but keep in mind that layers can also exist in user and user-agent stylesheets.
+
+Issues cascade layers can solve :
+Large code bases can have styles coming from multiple teams, component libratirs , freamworks, and third parties. NO matter how many stylesheets are included , all these styles cascade together in single origin: the author styles sheet.
+
+Having styles from many sources cascade together, especially from teams aren't working together, can create problem. Different teams may have different methodologie; one may have a best practice of reducting specificity, while another may have a standared of including an id in each selecor.
+
+Specificity conflicts can escalate quickly. A web devloerp may create a "quick fix" by adding an !important flag. While this may feel like an easy solution, it often just moves the spcificity war from normal to important declaration.
+
+In the same way that cascade origins provide a balance of power between user, user-agents, and author styles, cascade layers provide a structureed way to organize and balance concerns within a single origin as if each layer in an origin were a sub-origin. A layer can be created for each team, compoentn, and third party, with style precedence based on layer order.
+
+Rules within a layer cascade together, without competing with style rules outside the layer. Cascade layers enable the prioritiing of entire stylesheets over other stylesheets, without having to worry about specificity between these sub-origins.
+
+Layer precedence always beats selector specificity. Styles in layers with precedence " win" over layers with less precedence. THe specificity of a selecto in a losing layer is irrelevant. Specificity still matters for competing propety values within a layer, but there are no specificity concerns between layers because only the highest-priority layer for each property is considerd.
+
+Issues nested cascade layers can solve :
+Cascade layers allow the creation of nested layers. EAch cascade layer can contin nested layers.
+
+For example, a component library may be imported into a components layer. A regular cascade layer will aldd the component library to the author origin, removing any specificity conflicts with other author styles. Within the components layer, a devloper can choose to define various theams, each as a separete nested layer. The order of these nested themse layers can be defined based on media queries (see the Layer creation and media queried section below). such as viewport size or orientation. .These nested layers provide a way to create themas that don't conflict based on specificity.
+
+The ability to nest layers is very userful for anybody who works on developing component librareis, freamwork, third-party widgets , and themes.
+
+The ability to create nested layers also removes the worry of having conflicing layer names. WE'll cover this in the nested layer section.
+
+"Authors can create layers to represent element defaults, third-party libraries, themes, componetns, override, and other styling concerns - and are able to re-order the cascade of layer in an explicti way, without altering selectors or specificity within each layer, or replying on order of appearence to resolve conflicts across layers."
+
+Creating cascade layers :
+Layers can be created using any one of the following methods:
+
+-> The @layer statement at-rule, declaring using @layer followed by the names of one or more layers. THis created named layers without assigning any styles to them.
+-> The @layer block at-rule, in which all styles within a block are added to a named or unnamed layer.
+-> The @import rule with the layer keyword or layer() function, which assign the contents of the imported file that layer.
+
+
+All three methods create a layer if a layer with that name has not alreay been initalized. if no layer name is provided in the @layer at-rule or @import with layer(), a new anonymous (unnamed) layer is created.
+
+Note: The order of precedence of layers of layers is the order in which they are created. Styles not in a layer, or "unlayred styles", cascade together into a final implicit label.
+
+Let's cover the three ways of creating a layer in a little more detial before discussing nested layers.
+
+The @layer statement at-rule for named layers :
+The order of layers is set by the order in which the layers appear in your CSS. Declaring layers using @layer followed by the names of one or more layers without assigning any styles is one way to define the layer order.
+
+The @layer CSS at-rule is used to declare a cascade layer and to define the order of precedence when thre are multiple cascade layers. THe following at-rule declares three layers, in the order listed:
+
+@layer theme, layout, utilities;
+
+You will often want to have first line of CSS be this @layer declaration (with layer names that make sense for your site, of course) to have full control layer ordering.
+
+If the above statemtn is the first line of a sit's CSS, the layer order will be theme, layout and utilities. If some layers were created prior to the above statement, as long as layers with these names don't alreay exist, these three layers will be created and added to the end of the list of existing layers. However, if a layer with the same name alreay exists, then the above statement will created only two new layers. For example, if layout alreay exited, only them and utilites will be crtead, but the order of layers, in thiscase, will be layout, theme, and utiliteis.
+
+The @layer block at-rule for named and anonymous layers :
+Layers can be created using the block @layer at-rule. If an @layer at-rule is followed by an identifier and a block of styles, the identifier is used to name the layer, and the styles in this at-rule are added to the layer's styles. IF a layer with the specified name does not alreay exist, a new layer will be created. if a layer with the specified name alreay existes, the styles are added to the previously existing layer. if no name is specified while creating a block of styles using @layer , the styles in the at-rule will be added to a new anonymous layer.
+
+In the example below, we've used four block and one linke @layer at-rule. This CSS does the follwoing in the order listed:
+
+1/ Creates a named layout layer.
+2. Creates an unnamed, anonymouse layer
+3. Declares a list of three layers and creates only tow new layers, them and utilities, because layout alreay exists.
+4. ADDs additional styles to the already existing layout layer
+5. Creates a second unnamed, anonymous layer
+
+In the above CSS, we created five layers: layout, <anonymous(01)>, theme, utilities, and <anonymous(02)> - in that order - with a sixth, implicit layer of unlayered styles contained in the body style block. THe layer order is the order in which the layeres are created, with the implictg layer of unlayred styles always being last. There is no way to change the layer order once created.
+
+WE assigned some styles to the layer named layout. IF a named layer doesn't alreayd exist, then specifiying the name in an @layer at-rule, with or without assigning styles to the layer, creates the layer; this adds the layer to the end of the series of existing layer names. if the named layer alreay exists, all styles withing the named block get appended to styles in the previously existing layer-specifiing styles in a block by reusing an existing layer name does not create a new layer.
+
+Anonymous layer are created by assigning styles to a layer without naming the layer. Styles can be added to an unnamed layer only at the time of its creation.
+
+Note: Subsequent use of @layer with no layer name creates additional unnamed layers; it does not append styles to a previously existing unnamed layer.
+
+The @layer at-rule creates a layer, named or not, or appends styles to a layer if the named layer alreayd exists. We called the first anonymous layer <anonymous(01)> and the second <anonymous(02)>, this is just so we can explain them. These are actually unnamed layers. There is no way to reference them or add aditional styles to them.
+
+All styles declared outside of a layer are joined together in an implicit layer. In the example code above, the first declaration set the color:#333 property on body. This was declared outside of any layer. Normal unlayered declarations take precedence over normal layered declaration even if the unlayered styles have a lower specificity and come first in the order of apperance. THis example why even though the unlayered CSS was declared first in the code block, the implicit layer containing these unlayered styles takes precedence as if it was the last declared layer.
+
+In the line @layer theme, layout, utilities; in which a series of layers were declared, only the theme and utilities layers were created; layout was alreayd created in the first line. Note that this declaration does not change the order of alredy created layers. THere is currently no way to re-order lyers once declared.
+
+In the following interactive example, we assign styles to two layers, creating them and naming them in the process. Becuase they alreay exist, being created when first used, declaring them on the last line does nothing.
+
+Try moving the last line @layer site, page; to make it first line. What happens?
+
+Layer creation and media queries :
+If you define using media or feature queries, and the media is not a match or the feature is not supported, the layer is not created. The example below shows how changing the size of your device or browser may change the layer order. In this example, we created the site layer only in wider browsers. WE then assign styles to the page and site layers, in that order.
+
+In wide screens , the site layer is declared in the first line, meaning site has less precedence than page, Otherwise, site has precedence over page becuase it is declared later on narrow screens. If that donesn't work, try changin the 50em in the media query to 10em or 100em.
+
+Importing styles sheets into named and anonymous layers with @import :
+The @import rule allows users to import style rules from other style sheets either directly into a CSS file or into a <style> element.
+
+When importing stylesheets, the @import statemetn must be defined before any CSS styles within the stylesheet or <style> block. The @import statement must come first, before any styles, but can be preceded by an @layer at-rule that creates one or more layers without assiging any styles to the layers. (@import can also be preceded by an @charset rule.)
+
+You can import a stylesheet into a named layer, a nested named layer, or an anonymous layer. The following layer imports the style sheets into a componets layer, a nested dialog layer within the components layer , and an un-named layer, respectively:
+
+@import url ("compontns-lib.css") layer(compontns);
+@import url("dialog.css") layer (components.dialog);
+@import url("marking.css"); layer();
+
+You can import more than one CSS file into a single layer. The following declaration imports two separete files into a single social layer:
+
+@import url(comments.css) layer(social);
+@import url(sm-icons.css) layer(social);
+
+You can import styles and create layers based on specific conditions using media quereis and feature quereis. The following imports a style sheet into an international layer only if the browser supports display:ruby, and the file being imported is dependent on the width of the screen.
+
+Note : There is no equivalent of the <link> method of linking stylesheets. Use @import to import a stylesheet into a layer when you can't use @layer within the stylesheet.
+
+Overview of nested cascade layeres :
+Nested layeres are layers within a named or an anonymous layer. Each cascade layer, even an anonymous one, can contain nested layers. Layers imported into another layer become nested layere with theat layer.
+
+Advantages of nesting layeres :
+
+The ability to nest layers enables teams to create cascade layers without worring about whenther other teams will import them into a layer. Similarly, nesting enables you to import third-party style sheets into a layer without worring if that style sheet itself has layers. Because layers can be nested, you don't have to worry about having conflctin layer names between external and internal style sheets.
+
+Createing nested cascade layers :
+Nested layers can  be created using the same methods as descibed for reghular layers. For example, they can be created using @layer at-rule followd by the names of one or more layers, using a dot notation. Multiple dots and layer names signify multiple nesting.
+
+If you nest a block @layer at-rule inside another block @layer at-rule, with or without a name, the nested block becomes a nested layer. Similarly, when a style sheet is imported with an @import declaration containd the layer keyword or layer() function, the style get assigned to the named or anonymous layer. If the @import statemtn contains layers, those layers become nested layers withi that anonymous or named layer.
+
+Let's look at the following example:
+
+IN the first line, we import componetnss-lib.css into the components layer. If that file contains any layers, named or not, those layers become nested layres within the compoents layer.
+
+The second line imports components-lib.css into the compoennet layre. IF that file contains any layers, named or not, those layers become nested layres within the componetns layer.
+
+THe second line imports narrowthem.css into the narrow layer, which is a sub-alery of componets. The nested componets.narrow gewts created as the alst layer within the componetnts layre, unless componetnts-lib.css alreay contains a narrow layer, in which case , the contents of narrow them.css would be appended to the components.narrow nested layer. ADDitional nested named layers can be added to the components layer using the parytten components.<layerName>. As mentioned before, unnamed layers can be created but they cannot be accessed subsequently.
+
+Let's look at another example, where we import layers1.css into a named layer using the following statemtn:
+
+@import url(layers1.css) layer(example);
+
+This will create a single layer named example containing some declaration and five nested layers-exaple.layout, example,<anonymous(01)>,example.theme,example.utilties,and example.<anonymouse(02)>.
+
+To add styles to a named nested layer, use the dot notation:
+
+Determiing the precedence based on the order of layres :
+The order of layeres determines their order of precedence. THerefore the order of layeres is very important . IN the same wya the cascase sorts by origin and importance, the cascade sorts each CSS declartion by origin layer and importance.
+
+Precedence order of regular cascade layers :
+@import url(A.css) layer(firstLayer);
+@import url(B.css) layer(secondLayer);
+@import url(C.css);
+
+The above code creates two named layers and one unnamed layer. Let us assume that the three files (A.css,B.css, and C.css) do not contain any additioanl layeres within them. The following list shows where styles declared inside and outside of thse files will be sorted from laste(1) precedence to highest(10).
+
+1. firstLayer normal styles(A.css)
+2. secondLayer normal styles(B.css)
+3. unlayed normal styles(C.css)
+4. inline normal styles
+5. animating styles
+6. unlayred importan styles (C.css)
+7. secondLayer important styes (B.css)
+8 firstLayer import styles(A.css)
+9.inline importn styles
+10. transitioning styles
+
+Notmal styles declared inside alyers receive the lowest priority and are sorted by the ordre in which the layers were creasted. Normal styles in the first created layer have the lowest precedence, and normal styles in the layer created last have the hightst precedence amont the layrs. In other words, normal styles declared within firstLayer will be overridden by any subsequent styling on the list if any conflict exist.
+
+Next up are any styles declared outside of layres. The styles in C.cs were not imported into a layer and will override any conflicting styles from firstLayer and secondLayer. STyles not declared in a layer always have higher precedence than styles that are declared inside a layer (with the exception of importna styles).
+
+Inline styles are declared using the style attribu. Noremal styls declared in theis way will take precedence over normal styles found in the unlayred and layered style sheets (firstLayour. - A.css , secondLayer - B.css, and C.css).
+
+Animating styles have higher precedence thatn all normal styles, including inline normal styles.
+
+Important styles, that is, property values that include the !importan flag , take precedence over any styles previously maentioned in our list. They are sorted in revers order of normal styles, Any importnat styles declared outside of a layer have less precednce then those declared within alyer. Important styles found withing layers are also sorted in order of layer creation. For improtan styles, the last created layer has the lowest precedence, and the firs created layer, has the hgihest precedence among declared layers.
+
+Inline importan styles again have higher prcedence thatn important styles declared elsewhere.
+
+Transitioning styles have the higherse precedence. When a normal properyt value is being transitioned, it take precedence over all other property value declareation, even inline import styles; but only while transitiong.
+
+In this example, there are two inline layers A and B without styles, a block of unlayred styles, and two blocks of styles in named layers A and B.
+
+The inline styles added on the h1 element using the style attribute, set a normal color and an importnat background-color. Normal inline styles override all layered and unlayred normal styles.
+Important inline styles overid all layred and unlayred normal and importan author styles. There is no way for author styles ot override imporot inline styles.
+
+The normal text-decoration and important box-shadow are not part of the stye inline styles and can therfor be override4n. For normal non-inline styles, unlayred styles have precedenc. For importnat styles, layer orer matter too. While normal unlayred styles override all normal styles swet in a layer , with improtnt sthles, the precedence order is reversed; unlayred impornt styles have lower precedence thatn layred styles.
+
+The two style delcared only within layres are font-style, with normal importance, and font-weight with an !important flag. For normal styles, the B layer, declared last, overrider styles in the earlier declared layer A. For normal styles, later layeres have precedence over eariler layers. THe order of precedence is reversed for importnat styles . For the improtan font-weight declaration, layer A, being declared first, has precedence over the last declared layer B.
+
+You can revers the layer order by chaging the first line form @layer, A, B; to @layer B,A; Try that which styles get chaged by this, and which stay the same ? Why?
+
+The order of layres is set by the ordre in which the layere appears in your CSS. In our fist line, we declared layeres without assigning any styles using @layer followd by the anmes of our layers, ending with a semi-colon.Had we ommited this line, the result would have been the sam. Why? WE assigened syte lrules in named @layer block in the ordre A then B. The two layer wre created in that first line. Had they not been, these rule blocks would have created them, in that order.
+
+
+We include that  first line for two reason: first so you could easily edit the line and switch the ordre and second becuase often you'll fild declaring the order layer up form to the best prectice for layer order management.
+
+Toi summarize.
+
+->< THe order of precedence of layer is the order in which the layer are created.
+-> Once created, there is no wayt ot change the layer order.
+-> Layer precedence for normal styles is the order in which the layers are created.
+-> Unlayred normal styles have precedence over normal laayerd styles.
+_> Layer precedencd for importna styles is reversed, with eariler created layer having precdence.
+-> All layered importan styls have precedence over unlayerd impornt (and normal) syles.
+-> Impootnant inline styels take precedence overe all other styels, with the exception of styles being transitioned.
+-> There is no way fo rauthor styles to overrid important inline styles (other than transitiong them, which is temporoty).
+
+Precedence order of nested cascade layers :
+The cascadee precedence order for nested layer is similar to that of regulare layre,s but contained with the layer. The precedence order is based on the order of nested layer creation. Non-nested styles in a layer have precedence over nested normal styles, with the precedenc order reversed for important styles, Specificity weight between neted layrees does not matter, though it does matter for conflicing styls within a nested layer.
+
+The following creates a adds style to the componetns layer and componetns.narrow nested layer and creats and appends styles to a new componnete.wid layer:
+
+Because unlayred normal styles have precedence over layerd normal styles, and within a layer, non-nested styule have prece3ded over normal nested sytrels, red wins over the other them colors.
+
+With importan styles, layred styles take preceden over unlyared styles, with impotant styles in eariler declared layers having precedenc over later declared layers. In this example, the ordre of nestedf layer creatiokn is compont.narrow, then compontn.swise. so important style sin componetns.narrow have precedence over importan styles in componetn.wide meaning sans-sefif wins.
+
+Test your skills !
+You've reached the end of the aritcle, but acn you rembermer the most imporatn information?you can find some further test to verifyi that  you'ver retained this information before you move on -- see test your skills : The cascase, teas2
+
+Summary :
+if you understood most of this aritlce , then well done -- you're now familer with the fundament mechanis of CSS cascade layers. Next up, we'll look at the box model in detail.
+
