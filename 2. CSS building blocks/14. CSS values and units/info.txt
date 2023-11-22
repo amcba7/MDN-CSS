@@ -1,0 +1,209 @@
+CSS values and units :
+CSS rules contain declarations, which in turn are composed of properties and values. Each property used in CSS has a value type that describes what kind of values it is allowed to have. In this lesson, we will take a look at some of the most frequently used values types, what they are, and how they work.
+
+Note : Each CSS propety page has a syntax section that lists the value types you can use with the propety.
+
+Prerequisites : Basic computer literacy, basic software installed, basic knowledge of working with files, HTML basic (study Introudction to HTML), and an idea of how CSS works (study CSS first steps).
+Objective : To learn about the different types of values and units in CSS properties.
+
+What is a CSS value ?
+In CSS specifications and on the property pages here on MDN you will be able to spot value types as they will be surrounded by angle brackets, such as <color> or <length>. When you see the value type <color> as valid for a particular propety, that means yoiu can use any valid color as a value for that property, as listed on the <color> reference page.
+
+Note : You'll see CSS values types referred to as data types. The terms are basically interchageble - when you see something in CSS referred to as a data type, it is really just a fancy way of saying value type. The term value referes to any particylar expression supported by a value type that you choose to use.
+
+Note : CSS value types tend to be enchosed in angle brackets(<,>) to differentiate them from CSS properties. For example there is a color propety and a <color> data type. This is not to be confused with HTML elements, as they also use angle brackets, but this is something to keep in minnd that the context should make clear.
+
+In the following exmple, we have sset the color of our heading using a keyword, and the background using the rgb() funciton.
+
+h1 {
+	color:black;
+	background-color : rgb(197,93,161);
+}
+
+A value type in CSS is a way to define a collection of allowable values. This means that if you see <color> as valid you don't need to wonder which of the different types of color value can be used- keywords, hex values, rgb() funciton, etc. Yoiu can use any avaialbe <color> values, assuming they are supported by your browser. The page on MDN for each value will give you information about browser support. For example, if you look at the page for <color> you will see that the browser compatibility section lists different types of color vlaues and support for them.
+
+Let's have a look at some of the types of values and units you may frequently encounter, with examples so that you can try out different possible values.
+
+Numbers, lengths, and percentages :
+There are various numeric value types that you might find yourself using in CSS. The following are all classed as numeric:
+
+Data type :-> Description
+<integer> : An <integer> is a whole number such as 1024 or -55.
+<number> A <number> represents a decimal number - it may or may not have a decimal point with a fractinal component. For example, 0.255, 128, or -1.2.
+<dimension> A <dimension> is a <number> with a unit attached to it. For example, 45deg, 5s, or 10px. <dimension> is an umbreally categroy that includes the <lengtth>, <angle>, <time>, and <resolution> types.
+<precentage> : A <precentage> represents a fraction of some other value. For example , 50%. Precentage value are always relative to another quantiy. For example, an element's length is relateiev to its parent element's lenght.
+
+Lengths : 
+The numeric type you will across most freuently is <length>. For example, 10px (pixels) or 30em. There are two types of lengths used in CSS - relative and absolute. It's important to know the difference in order to understand how big things will become.
+
+Absolute length units :
+The follwing are all absolute length units - they are not relative to anything else, and are generally considered to always be the same size.
+
+Most of these units are more useful when used for print , rather than screen output. For example, we don't typically use cm (centimeters) on screen. The only value that you will commonly use is px (pixels).
+
+Relative length units :
+Relative length units are relative to something else, perhaps the size of the parent element's font, or the size of the viewport. The benefit of using relative units is that with some careful planning you can make it so the size of text or other elements scales relative to everyhting else on the page. Some of the most useful units for web developments are listed in the table below.
+
+unit : Relative to 
+em : Font size of the parent , in the case of typrographical properties like font-size, and font size of the elements itself, in the case of other properties like width.
+ex : x-height of the element's font.
+ch : The advance measure (width) of the glyph "0" of the element's font.
+rem : Font size of the root element.
+lh : Line height of the element.
+rlh : Line height of the rooot element. When used o the font-size or line-height properites of the root element, it refers to the properties initial value.
+vw : 1% of the viewport's height.
+vmin : 1% of the viewports's smaller dimension.
+vmax : 1% of the vviewport's lerger dimension.
+vb : 1% of the size of the initial contating block in the directiokn of the root element's block axis.
+vi : 1% of the size of the initial containing block in the directiokn of the root element's inline axis.
+svw, svh : 1% of the small viewport's width and height, respectively.
+lvw, lvh : 1% of the large viewport's width and height, respctively.
+dvw, dvh : 1% of the dynamic viewport's width and height, respective.
+
+Exploring an example :
+In the example below, you can see how some relative and absoute length units behave. The first box has a width set in pixels. As an absolute units, this width will remain the same on matter what else changes.
+
+The second box has a wisth set in vw (viewwport width) units. This value is relative to the viewport width ,and so 10vh is 10 percnt of the widht of the viewport. If yoiu change the widhth of your browser widnow, the  size of the box should change . however this example is embedded into the page using an <iframe>, so this won't work. To see this ini action you'll have to try the example after opening it in its own nrowser tab.
+
+The third box uses em units. These are relative to the font size. I've set a font size of 1em on the containing <div>, which has a class of .wrapper. Change this value to 1.5em and you will see that the font size of all the elements increases, but only the last item will get wider, as its width is relative to that font size.
+
+After follwing the instruction sbove. try playing with the valuue in other ways, to see what yoiu get.
+
+ems and rems :
+em and rem are the two relative length you are likeley to encourter most frequently when sizing anything forom boxes to text. It's worth understading how these work, and the differences between them, especially when you start getting on to more complex subjects like styling text or CSS layout. The kbelow example provides a demonstartion.
+
+The HTML illustrated below is a set of nested lists - we have two lists in total and both examples have the same HTML. The only differeence is that the first has a class of ems and the second a class of rems.
+
+To start with, we set 16px as the font size of the <html> elemet.
+
+To recap, the em units means "my parent element's font-size" in the casae of typography. The <li> elements inside the <ul> with a class of ems take their sizing from their parent. So each successivew level of nesting gets prograssively larger, as each has its font size set to 1.3em - 1.3 times its parent's font size.
+
+To recap, the rem units means "The root elemment's font-size" (rem stands for "root em"). The <li> elements inside the <ul> with a class of rems take their sizing form the root elemetns(<html>). This means that each successive level of nesting does not keep getting larger.
+
+However, if yoiiui change the <html> element's font-size in the CSS you will see taht everything else chagnes relative to it - both rem and em sized text.
+
+Line height units :
+lh and rlh are realative length units similar to em and rm. The difference between lh and rlh is that the first one is relative to the line height of the element itslel, while the seond okne is relative to the line height of the roo tlemenet, usually <html>
+Using these usnits , we can precisely alight box decoration to the text. In this exmple, we use lh unit to create notepad-like lines using repeating-linera-gradiewnt()., It does't matter what the line height of the text, the lines will always start in the right place.
+
+Percentages :
+In a lot of ases, a precentage is treated in the same waya sa length. the thing with percentages is that they are always set relative to some other vlaues. For excample, if you set an element's font-size as a percentage, it will be a percentage of the font-size of the element's parent. if yoiu use a percentage for a width value, it will be percentage of the width of the parent.
+
+In the below exmple the two percentage-sized boxes and the two pixel-sized boxes have the same class names. The sets are 40% and 200px wide respectivewly.
+
+The difference is tht the second set of two boxes is inside a wrapper that is 400 pixels wide. The second 200px wide box is the same width as the first one, but the second 40% box is now 40% of 400px a lot narrower that the first one
+!
+
+Try chaning the width of the wrapper or the percentage value to see how this works.
+
+The next exmple has font sizes set in percentages. Each <li> has a font-size of 80%; therfore the nested lint items become p rograssivelyy smaller as they inherit their sizing form their parent.
+
+Note that, while many values types accept a length or a percentage, there are some that only accept length. You can see which values are accepted ont eh MDN property referecne pages. If the allowed value includes <lingth-percentage> then you can use a length or a percentage. If the allowed vlue only includes <linght> it is not possible to use a percentage.
+
+Numers :
+Some value types accept numbers, wightout any unit added to them. An example of a property which accepts a unitless number is the opacity properyt, which control the opacity of an element (how transperatnt it is) This property accepts a number between 0 (fully transparent) and 1 (fully opque.).
+In the below example, try chaing the value of opacity toi variaous decimal values between 0
+
+Note : When you use a number in CSS as a value it should not be surrounded in quotes.
+
+Color :
+Color values can be used in many places i CSS, whenther you are specifyiing the color of text, backgrounds, borders, and lots more . There are many ways to set color in CSS, allowing you to control plenty of exitiing propetties.
+
+The standard color system avaiable in mordern computers supports 24-bit colors, which allows displaying about 16.7 million distinct colorrs via a comiation of different red, green, and blue channesl with 256 different values per channel (256*256*256 = 16,777,216).
+
+In this section , we'll first look at the most commonly seen ways to specifying colors : using keywords, hexadecimal ,and rgb() values. We'll also take a lquick look at additional color functions, enabling you to recognize them when you see them or experimetn with different ways of applying color.
+
+You will likely decide on a color palette and then use those colors - and your favorite way of specifyiing color - throughout your project. You can mix and match color models, but it's usually best if your entire project uses the same method of declariing colrs of consistency!
+
+Color keywords :
+You will see the color keywords (or 'named colors') used in many MDN code examples, As the <named-color> s data types contains  very finite number of color values, there are ot commonly used on production websites,. As the keyword represents the color as a human-redable text value, anmed colors are used in code example to clearly tell the user what color is expected so the learner can focus on the content being taught.
+
+Try playing with different color value sin the live example below, to get more of an idea how they work.
+
+Hexadecimal RGB values :
+The next type of color value you are likely to encouter is hexadecimal codes. Hexadecimal uses 16 characters from 0-9 and a-f, so the entire range is 0123456789abcdef. Each hex color values consistes of a has/pound symbol (#) followed by three or six hexadecimal characters (#fcc or #frfc0cb, for ecample), with an optional one or two hexadecimal characters represeting the alpha-transparency of the previous three or six character color vlues.
+Whe usiing hexadecimal to describe RGB values, each pair of hexadecimal characters is a decimal number represeting one of the channles - red, green and blue - and allws us to apeciy any of 256 aaiable values for each (16*16 = 256). These values are less intutiave than keywords fo rdefining colors, but they are a lot more versalite because you can represent any RGB color with them.
+
+Again , try changing the values to see hwo the colrs vary. 
+RGB and RGBA values :
+To create RGB values directly, the rgb() function takes three parameters represetign red, green and blue channel values of the colors, with an optional fourth values separated by a slash ('/') represetnign opacity, in much the same as hex values. The differece with RGB is that each channle is represetedd not by two hex dightis, but by a decimal number between 0 and 255 or a percent between 0% and 100% inclusive (but not a mixture of the two).
+
+Let's rewite our last example to use RGB colors:
+
+Yo can pass a fourth parameter to rgb() , which represents the alpha chanlel fo the color, which controls opacity. If you set this value to 0 it will make the color fully transparent, wherears 1 will make fully opoaque. Values in between give you different levels of transparancy.
+
+Note : Setting an alpha channel on a color has one key difference to usig the opacity property we looked at eariler. When you use opacity you make the lement and everything iknside it opqure, whearas usiing RGB with an alpha parameter colors only akes the oclkor yoiu are specifying oipaque.
+
+In the example below, we have added a background image to the containing block of our colored boxes. We have then set the boxes to have different opacity values - notice how the background shows through more when the alpha channel value is smaller.
+
+In this example, try changing the alpha channel values to see hwo ti affects the color output.
+
+Note : In older version of CSS, the rgb() syntax did't support an alpha parameter- you needed to use a different function called rgba() for that . These days you can pass an alpha parameter to rgb(), but for bacwards compatibility with old webisites, the rgba() syntax is still supported, and has exactly the same behavior as rgb().
+
+Using hues to specify a color :
+if you want to go beyoiund keywords, hexadecimal, and rgb() for colors, you might want to try using <hue>. Hue is the property that allows us to tell the difference or similarity between colors like red, orange, yellow, green, blue, etc. The key concept is that you can specify a hue in an <angle> becuase most of the color models describe hues using a color wheel.
+
+A great starting point for using hues in CSS is the hsl() function. Let's take a quick look at the parts you can speciy:
+-> Hue : The base shade of the color. This takes a <hue> value between 0 and 360, represetnting the angles around a color wheel.
+-> Saturation : How saturated is the color? This takes a value 0-100%, where 0 is no color (it will appear as a shade of grey), and 100% is full color saturation.
+-> Lightness: How light or bright is the color? This takes a value from 0-100%, where 0 is no light (it will appear completely black) and 100% is full light (it will appear completly white).
+
+Similar to rgb() , the hsl() color value also has an optional fourth value, separted from the color with a slash(/), represetnign tht alpha transanecy.
+
+Let's update the RGB example to use HSL color instead:
+
+Just like with rgb() you can pass an alpha parameter to hsl() to specify opacity:
+
+Note : In older version of CSS, the hsl() syntax did't support an alpha parameter - you needed to use a different function called hsla() for that. These days you cn pass an alpha parameter to hsl(), but for backwards compatibility with old websites, the hsla() syntax is still supported, and has exactly the same behavior as hsl().
+
+There are other color functions avaiable such as hwb() and lch() which also use <hue> component, and even function such as lab() which let yoiu work with colors based on what human can see. If you want to find our more aobut these funciton and color spaces, see the Applying color to HTML elements uing CSS guid, the <color> reference that lists all the differeence ways you can use colors in CSS, and the CSS color modules that provides an overview of all the colr types in CSS and the properties that use color values.
+
+Imges :
+The <image> values type is used wherever an image is a valid value. This can be an actual image file pointed to via a url() funciton, or a gradient.
+
+In the example below, we have demonstrated an image and a gradient in use as a vlue fo rthe CSS background-image property.
+
+Note : There are some other possible alues for <image> , however these are newer and currently have poor browwser support. Check out the page on MDN for the <image> data type if you want to read about them.
+
+Position :
+The <position> value type represents a set of 2D coordinates, used to position an item such as a background image (via background-position). It can take keywords such as top, left, bottom, right, and center to align items with specifi bounds of a 2d box, along with lengths, which represetnt offsets fromt e top and left-hand edges of the box.
+
+A typical position value consists of two valus - the first sets the position horizontally, the second vertically. if yo only specify values for one axis the other will default to center.
+
+In the following example we have positioned a background image 40px from the top and to the right of the container using a keyword.
+
+Play around with these values to see how tyoi can push thhe image around.
+
+STrings and identifiers :
+Throughout the examples abouve, we've seen places where keywords are used as a value (for example <color> keywords like red, black, rebecappurlple, and goldenrod). These keywords are more accurately described as identifires, a special value that CSS uunderstands. AS such they are not quoted - they are not treated as strings.
+
+There are places where you use string in CSS. For example, when specifying generated ontent. In this case, the value is quoted to demonstrate that it is a string. In the example belwo, we use unquoted bolor keywords along with a quoted generated content string.
+
+Functions :
+In programming, a function is a piece of code that does a specific task. Functions are useful becuase you can write code once, then reuse it many times instead of writing the same logic over and over Most programming language not only support functions but also come with convenient built-in function for common tasks so you don't to write them yourself from scracth.
+
+CSS also has functions, which work in a similar way to functions in other languages. In fact, we've alreay seen CSS functions in the Color section above with rgb() and hsl() funcitons.
+
+Aside from applying colors, yoiu can use functions in CSS to do a lot of other things. For example Transform functions are a common way to move, rotate, and scale elements on a page. You might see translate() for moviing somethingi horizontally or vertically, rotete() to rotate somehting or scale() to make somehting bigger or smaller.
+
+Math functions :
+When you are creating styles for a project, you will probably start off with numbers like 300px for lengths or 200ms for durations. If you want to have these values changes based on other values, you will need to do some math. You could calculate the percentage of a value or add anumber ot another number, then update your CSS with the result.
+
+CSS has support for Math functions, which allow us to perform calcuations instead of relyingon static vslues or doing the amth in JavaScipt. One of the most common math functions is calc() which lets you do opertions like additon, subtraction, multiplication, and division.
+
+For exmaple, let's say we want to set the width of an element to be 20% of its parent container plus 100px. We can't specify this width with a stic value - if the parent uses a percentage width (or a relative unit like em or rem) then it will vary depending on the context it is used in, and other factors such as the user's device or browser window width. However, we can use calc() to set the width of the element to be 20% of its parent container plus 100px. The 20% is based on the width of the parent continer (.wrapper) and if that width changes, the calcuations will change too:
+
+There are many other math functions that you can use inn CSS, such as min() , max(), and clap(); respectively these let you pick the smallest , larget or middel value from a set of values. You can also use TRigonometirc functions like  sin(), cos() and and tan(). To calculte angles for rotating elements around a point, or choose colors that take a hue angele as a parameter. EXponential function might also be used for aniation and transitions, when you requre very specif control over how something moves and looks.
+
+Knowing about CSS functions is useful so you recognize them when you see them. You should start experimenting with them in your projects - they will help you avoid writing custom or repetitive code to achieve results that you can get with regular CSS.
+
+Test your skills !
+You've reached the end of this article, but can you remember the most improtant information ? you can find some furthter tests to verfiy that you've retained this information before you move on -- see Test your skills : values and units;
+
+Summarey :
+This has been a quick run through of the most ocmmon types of vlues and units yoiu might encounter. You can have a look at all of the different types on the CSS values and units referece page - you will encounter many of these in use as you work through these lessons.
+
+The key thing to remember is that each property has a defined list of allowed values types, and each value type ahs a definition explaining what the values are You can then look up the speciics her on MDN. For example, understading the <image> also allwos you to create a color gradient is useful bet perhaps non-obvious knowlege to hae
+
+In the next article, we'll take a look at how items are sized in CSS.
+
