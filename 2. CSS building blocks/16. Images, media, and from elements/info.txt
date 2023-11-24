@@ -1,0 +1,97 @@
+Images, media, and form elements :
+In this lesson we will take a look at how certain special elements are treated in CSS. Images, other media , and form elements behave a little differently from regular boxes in terms of your ability to style them with CSS. Understanding what is and isn't possible can save some frustration, and this lesson will highlight some of the main thiings that you need to know.
+
+Prerequisites : Basic computer literacy, basic software installed, basic knowledge of working with files, HTML basics (study Introduction to HTML), and an idea of how CSS works (study CSS first steps).
+Objective : To understand the wayt that some elements behave unusually when styled with CSS.
+
+Replaced elements :
+Images and video are described as replaced elements. This means that CSS cannot affect the internal layout of these elements - only their position on the page amongst otherr elemennts. As we will seee however, there are various things that CSS can do with an image.
+
+Certain replaced elements, such as images and video are also described as having an aspect ration. This means that it has a size in both the horizontal (x) and vertical(y) dimensions, and will be displayed using the intrinsic dimensions of the file by default.
+
+Sizing images :
+As you already know from following these lessons, everything in CSS generates a box. If you place an image inside a box that is smaller or larger then the intrrinsic dimensions of the image file in either direction, it will wither appear smaller than the box, or overflow the box. You need to mae a decision about what happends with the overflow.
+
+in the example below we have two boxes, both 200 pixels in size:
+
+-> One contains an image which is smaller than 200 pixels - it is smaller than the box and doesn't stretch to fill it.
+-> The other is larger than 200 pixels and overflow the box.
+
+So what can we do about the overflowing issue?
+
+As we learned in our previous lesson, a common technique is to make the max-width of an image 100%. This will enable the image to become smaller in size then the box but not larger. This technique will also work with other replaced elements such as <video>s, or <iframe>s.
+
+Try adding max-width: 100% to the <img> element in the example above. You will see that the smaller image remains unchanged, but the larger one becomes smaller to fit into the box.
+
+you can make other choices about imageg inside containers. For example, you may want to size an iimage so it completely coveres a box.
+
+The object-fit property can help you here. When using object-fit the replaced element can be sized to fit a box in a variety of ways.
+
+Below we have used the value cover, which sizes the image down, maintaing the aspect ratio so that it neatly fills the box. As the aspect ratio is maintained, some parts of the image will be cropped by the box.
+
+you could also try the value of fill, which will fil the box but maintain the aspect ration.
+
+Replaced elements in layout :
+When using various CSS layout techniques on replaced elements , you may well find that they behave silghtly differently from other elements. For examole, in a flex or grid layout elements are stretched by default to fill the entire area. Images will not stretch, and instead will be aligned to the start of the grid area or flex container.
+
+You can see this happening in the example below where we have a two column, two row grid container, which has four items in it. All of the <div> elements have a background color and stretch to fill the row and column. The iamge, however, does not stretch.
+
+If you are following these lessons in order then you may not have looked at layout yet. Just keep in mind that replaced elements, when they become part of a grid or flex layout, have different default bahaviours, essentially to avoid them being stretched strangely by the layout.
+
+To force the image to stretch to fill the grid cell it is in, you'd have to do something like the following:
+
+img {
+	width : 100%;
+	height : 100%;
+}
+
+This would, however, stretch the image, so it's probably not what you'd want to do.
+
+Form elements :
+Form elements can be a tricky issue when it comes to styling with CSS. The Web Forms module contains detailed guides to the trickier aspects of styling these, wheich is will not fully reproduce here. There are , however, a few key basics worth highlighting in this section.
+
+Many form controls are added to your page by way of the <input> element - this defines simple form fields such as text inputs, through to more complex fields such as color and data pickers. There are some additional elements, such as <textarea> for multiline text input, and also elements used to contain and level parts of forms such as <fieldset> and <legend>.
+
+Html also contains attributes that enables web developers to indicate which fields are required, and even the type of content that needs to be entered. If the user enters something unexpected, or leaves a required field blank, the browser can show an error message. Different browsers vary with one another in hwo mauch styling and customization they allow for such items.
+
+Styling text input elements :
+Elements that allow for text input, such as <input type="text"> , and the more specific <ipout type="email">, and the <textarea> element are uite easy to style and tend to behave just like other boxes on your page. The default styling of these elements will differ, however, based on the operating system and browser that you user visits the size with.
+
+In the example below we have styled some text inputs using CSS - you can see that things such as borders, marginsk and padding all apply as you would expect. We are using attribute selectors to target the different input types. Try changing how this form looks by adjusting the borders, adding background colors to the fields, and changin fornts and padding.
+
+Warning : You should take care when changing the styling of form elements to makr sure it is still obvious to the suer they are form elements. you could create a form input with no borders and background that is almost indistinguishable from the content around it, but this would make it very hard to recognize and fill in.
+
+As explained in the lessons on styling web forms, many of the more comple inpout types re rendered by the operating system and are inacceessiblke to styling. You should , therefore, always ssume that forms are going to look quite different for different visitor and test complex forms in a number of browsers.
+
+inheritance and form elements :
+In some browsers, form elements do not inherit font styling by default. Therefore, if you want to be sure taht you form fields use the font defined on the body, or on a parent element, you should add this to your CSS.
+
+Form elements and box-sizing :
+Across browsers, form elements use different box sizing rules for different widgets. You learned about the box-sizing propety in our box model lesson and you can use this knowledge when styling forms to ensure a consistent experience when setting widths and heights on form elements.
+
+For consistency, it is a good idea to set margins and padding to 0 on all elements, then add these back in when styling particluar controls:
+
+Ohter userful settings :
+In addition to the ruules mentioned abouve, you should also set overflow: auto on <textarea>s to stop IE showing a scrollbar when there is no need for one:
+
+textarea {
+	overflow: auto;
+}
+
+Putting it ll together into a "reset"
+
+As a final step, we can wrap uo the various properties discussed above into the following "form reset" to provide a consistent base to work from. This includes all the items mentioned in the last three sections:
+
+Note : Normalizing stylesheets are used by many developers to create a set of baseline styles to use on all projects. Typically these do similar things to those descibed above, making sure that anything different across browsers is set to a consistent default before you do your own work on the CSS. They are not as important as they once, were, as browsers are typically more consistent than in the past. However if you want to take a look at one example, check out Normalize.css which is a ery popular stylesheet used as a base by many projects.
+
+For further information on styling forms, take a look at the two articles in the HTML section of these guides.
+
+-> Styleing web forms
+-> Advanced from styling
+
+Test your skills!
+Youve reached the end of this article, but can you remember the most important information? you can find some further tests to verify that you've retained this information before you move on - see Test your skills : images and form elements.
+
+Summary :
+This lesson has highlighted some of the differenes you will encounter when working with images, media, and other unusual elements in CSS.
+In the next article, we'll learn how to style HTML tables.
